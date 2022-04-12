@@ -16,7 +16,7 @@ public class Album {
     @ManyToOne(optional = false)
     private Artista dono;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "album")
     private List<Musica> musicas = new ArrayList<>();
 
     public Album(String nome, Artista dono) {
