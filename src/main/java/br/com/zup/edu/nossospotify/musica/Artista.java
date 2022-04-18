@@ -50,6 +50,14 @@ public class Artista {
         return nome;
     }
 
+    public Set<Album> getAlbuns() {
+        return albuns;
+    }
+
+    public Set<Musica> getMusicas() {
+        return musicas;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
