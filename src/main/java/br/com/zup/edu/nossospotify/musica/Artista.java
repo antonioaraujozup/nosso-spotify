@@ -2,6 +2,7 @@ package br.com.zup.edu.nossospotify.musica;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -74,4 +75,20 @@ public class Artista {
         this.albuns.add(album);
     }
 
+    public void remover(Musica musica) {
+        this.participacoes.remove(musica);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artista artista = (Artista) o;
+        return Objects.equals(id, artista.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

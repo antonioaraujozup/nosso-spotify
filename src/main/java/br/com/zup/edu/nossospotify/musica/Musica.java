@@ -1,5 +1,8 @@
 package br.com.zup.edu.nossospotify.musica;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +24,7 @@ public class Musica {
             joinColumns = @JoinColumn(name = "musica_id"),
             inverseJoinColumns = @JoinColumn(name = "artista_id")
     )
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private Set<Artista> participantes = new HashSet<>();
 
     @ManyToOne
@@ -60,5 +63,13 @@ public class Musica {
 
     public void adicionar(Album album) {
         this.album = album;
+    }
+
+    public void remover(Artista artista) {
+        if(!this.participantes.remove(artista)) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Artista não é participante da música");
+        }
+
+        artista.remover(this);
     }
 }
