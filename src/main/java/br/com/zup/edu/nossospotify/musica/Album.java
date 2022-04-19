@@ -16,7 +16,7 @@ public class Album {
     @ManyToOne(optional = false)
     private Artista dono;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "album")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "album")
     private List<Musica> musicas = new ArrayList<>();
 
     public Album(String nome, Artista dono) {
@@ -31,6 +31,10 @@ public class Album {
     public Album() {
     }
 
+    public void adicionarMusica(Musica novaMusica) {
+        novaMusica.adicionar(this);
+        this.musicas.add(novaMusica);
+    }
 
     public Long getId() {
         return id;
